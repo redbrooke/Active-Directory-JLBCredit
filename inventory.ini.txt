@@ -1,0 +1,23 @@
+[dc_jlb_root]
+LON-DC-1 ansible_host=10.0.0.10
+
+[dc_jlb_child]
+FFM-DC-1 ansible_host=10.0.0.11
+
+[dc_mhrt]
+DC-00 ansible_host=10.0.0.20
+
+[workstations_jlb]
+LON-WS-1 ansible_host=10.0.0.30
+LON-WS-2 ansible_host=10.0.0.31
+
+[workstations_mhrt]
+WS-00 ansible_host=10.0.0.40
+WS-01 ansible_host=10.0.0.41
+
+[all:vars]
+ansible_user=Administrator
+ansible_password=Password123!
+ansible_connection=winrm
+ansible_winrm_transport=ntlm
+ansible_winrm_server_cert_validation=ignore

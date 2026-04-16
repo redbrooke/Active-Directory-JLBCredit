@@ -1,0 +1,18 @@
+# roles/dc_child/tasks/main.yml
+- name: Install AD DS
+  win_feature:
+    name: AD-Domain-Services
+    include_management_tools: yes
+    state: present
+
+- name: Create child domain
+  win_domain:
+    dns_domain_name: "{{ child_domain }}.{{ domain_name }}"
+    domain_type: child
+    parent_domain_name: "{{ domain_name }}"
+    safe_mode_password: "{{ safe_mode_password }}"
+  register: child_domain
+
+- name: Reboot
+  win_reboot:
+  when: child_domain.reboot_required

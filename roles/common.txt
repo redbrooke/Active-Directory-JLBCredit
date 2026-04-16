@@ -1,0 +1,12 @@
+# roles/common/tasks/main.yml
+- name: Enable RDP
+  win_regedit:
+    path: HKLM:\System\CurrentControlSet\Control\Terminal Server
+    name: fDenyTSConnections
+    data: 0
+    type: dword
+
+- name: Enable firewall rule for RDP
+  win_firewall_rule:
+    name: Remote Desktop
+    enable: yes

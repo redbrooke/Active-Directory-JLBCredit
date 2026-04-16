@@ -1,0 +1,22 @@
+domain_name: JLBCredit.local
+child_domain: Frankfurt
+mhrt_domain: MHRTFinance.local
+
+safe_mode_password: "P@ssw0rd123!"
+
+users:
+  - AlanJohnson
+  - MarkCorrigan
+  - SophieChapman
+  - JeffHeaney
+  - Dobby
+  - GerardMatthew
+  - JeremyUsbourne
+
+mhrt_users:
+  - StefanStrauss
+
+ous:
+  - CEO
+  - "Loan managers"
+  - "IT staff"
