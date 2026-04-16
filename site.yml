@@ -1,3 +1,9 @@
+- name: Build Hyper-V Lab
+  hosts: localhost
+  connection: local
+  roles:
+    - hyperv_provision
+
 - name: Base config on all machines
   hosts: all
   roles:

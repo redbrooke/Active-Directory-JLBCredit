@@ -1,0 +1,34 @@
+- name: Define VM list
+  set_fact:
+    vms:
+      - { name: "LON-DC-1", ram: 4GB }
+      - { name: "FFM-DC-1", ram: 4GB }
+      - { name: "DC-00", ram: 4GB }
+      - { name: "LON-WS-1", ram: 2GB }
+      - { name: "LON-WS-2", ram: 2GB }
+      - { name: "WS-00", ram: 2GB }
+      - { name: "WS-01", ram: 2GB }
+
+- name: Clone VMs from golden VHDX
+  ansible.builtin.shell: |
+    powershell.exe -Command "
+
+      $baseVHD = 'C:\Users\user\Documents\GitHub\Active-Directory-JLBCredit\server.vhd'
+
+      if (-not (Test-Path $baseVHD)) {
+        throw 'Golden image missing'
+      }
+
+      if (-not (Get-VM '{{ item.name }}' -ErrorAction SilentlyContinue)) {
+
+        New-VM -Name '{{ item.name }}' `
+          -MemoryStartupBytes {{ item.ram }} `
+          -Generation 2 `
+          -SwitchName 'Lab-Switch' `
+          -VHDPath $baseVHD
+
+        Set-VM -Name '{{ item.name }}' -DynamicMemoryEnabled $true
+        Set-VM -Name '{{ item.name }}' -AutomaticCheckpointsEnabled $false
+      }
+    "
+  loop: "{{ vms }}"

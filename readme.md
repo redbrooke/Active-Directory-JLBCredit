@@ -1,4 +1,6 @@
+New-VMSwitch -Name "Lab-Switch" -SwitchType Internal
 
+wsl
 
 ansible-playbook -i inventory.ini site.yml
 

@@ -1,0 +1,59 @@
+---
+
+- name: Define lab VM inventory
+  set_fact:
+    vms:
+      # JLBCredit forest
+      - { name: "LON-DC-1", ram: 4GB }
+      - { name: "FFM-DC-1", ram: 4GB }
+
+      # MHRT forest
+      - { name: "DC-00", ram: 4GB }
+
+      # Workstations JLBCredit
+      - { name: "LON-WS-1", ram: 2GB }
+      - { name: "LON-WS-2", ram: 2GB }
+
+      # Workstations MHRT
+      - { name: "WS-00", ram: 2GB }
+      - { name: "WS-01", ram: 2GB }
+
+# =========================
+# CREATE VMS
+# =========================
+
+- name: Create Hyper-V VMs
+  ansible.builtin.shell: |
+    powershell.exe -Command "
+      if (-not (Get-VM '{{ item.name }}' -ErrorAction SilentlyContinue)) {
+
+        New-VM -Name '{{ item.name }}' `
+          -MemoryStartupBytes {{ item.ram }} `
+          -Generation 2 `
+          -SwitchName 'Lab-Switch'
+
+        Set-VM -Name '{{ item.name }}' -DynamicMemoryEnabled $true
+        Set-VM -Name '{{ item.name }}' -AutomaticCheckpointsEnabled $false
+      }
+    "
+  loop: "{{ vms }}"
+
+# =========================
+# ATTACH ISO (optional stage)
+# =========================
+
+- name: Attach Windows ISO
+  ansible.builtin.shell: |
+    powershell.exe -Command "
+      Set-VMDvdDrive -VMName '{{ item.name }}' -Path 'C:\ISO\WindowsServer2022.iso'
+    "
+  loop: "{{ vms }}"
+
+# =========================
+# START VMS
+# =========================
+
+- name: Start all VMs
+  ansible.builtin.shell: |
+    powershell.exe -Command "Start-VM -Name '{{ item.name }}'"
+  loop: "{{ vms }}"
