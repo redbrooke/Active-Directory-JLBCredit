@@ -37,3 +37,9 @@
   hosts: dc_jlb_root
   roles:
     - ad_config
+
+- name: Configure Jump Box
+  hosts: jumpbox
+  roles:
+    - workstation
+    - jumpbox

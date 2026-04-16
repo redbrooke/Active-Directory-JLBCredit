@@ -1,19 +1,22 @@
 [dc_jlb_root]
-LON-DC-1 ansible_host=10.0.0.10
+LON-DC-1 ansible_host=10.0.0.10 dns_server=127.0.0.1
 
 [dc_jlb_child]
-FFM-DC-1 ansible_host=10.0.0.11
-
-[dc_mhrt]
-DC-00 ansible_host=10.0.0.20
+FFM-DC-1 ansible_host=10.0.0.11 dns_server=10.0.0.10
 
 [workstations_jlb]
-LON-WS-1 ansible_host=10.0.0.30
-LON-WS-2 ansible_host=10.0.0.31
+LON-WS-1 ansible_host=10.0.0.30 dns_server=10.0.0.10
+LON-WS-2 ansible_host=10.0.0.31 dns_server=10.0.0.10
+
+[dc_mhrt]
+DC-00 ansible_host=10.0.0.20 dns_server=127.0.0.1
 
 [workstations_mhrt]
-WS-00 ansible_host=10.0.0.40
-WS-01 ansible_host=10.0.0.41
+WS-00 ansible_host=10.0.0.40 dns_server=10.0.0.20
+WS-01 ansible_host=10.0.0.41 dns_server=10.0.0.20
+
+[jumpbox]
+LON-JUMP-1 ansible_host=10.0.0.5 dns_server=10.0.0.10
 
 [all:vars]
 ansible_user=Administrator
