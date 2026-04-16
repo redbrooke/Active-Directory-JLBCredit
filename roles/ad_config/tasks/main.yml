@@ -1,33 +1,34 @@
 # roles/ad_config/tasks/main.yml
-
 - name: Create OUs
-  win_domain_ou:
+  microsoft.ad.ou:
     name: "{{ item }}"
     path: "DC=JLBCredit,DC=local"
+    state: present
   loop: "{{ ous }}"
 
 - name: Create users
-  win_domain_user:
+  microsoft.ad.user:
     name: "{{ item }}"
-    upn: "{{ item }}@JLBCredit.local"
+    user_principal_name: "{{ item }}@JLBCredit.local"
     password: "P@ssw0rd123!"
     state: present
+    enabled: true
   loop: "{{ users }}"
 
 - name: Create RDP group
-  win_domain_group:
+  microsoft.ad.group:
     name: RDP-Access
     scope: global
     state: present
 
 - name: Add users to RDP group
-  win_domain_group_membership:
+  microsoft.ad.group:
     name: RDP-Access
     members: "{{ users }}"
     state: present
 
 - name: Add RDP group to local Remote Desktop Users
-  win_group_membership:
+  ansible.windows.win_group_membership:
     name: "Remote Desktop Users"
     members:
       - "JLBCredit\\RDP-Access"
