@@ -1,9 +1,3 @@
-- name: Build Hyper-V Lab
-  hosts: localhost
-  connection: local
-  roles:
-    - hyperv_provision
-
 - name: Base config on all machines
   hosts: all
   roles:
@@ -15,26 +9,9 @@
   roles:
     - dc_root
 
-# Frankfurt child domain
-- name: Create Frankfurt child domain
-  hosts: dc_jlb_child
-  roles:
-    - dc_child
-
-# MHRTFinance forest
-- name: Create second forest
-  hosts: dc_mhrt
-  roles:
-    - dc_second_forest
-
 # Join workstations
 - name: Join JLBCredit workstations
   hosts: workstations_jlb
-  roles:
-    - workstation
-
-- name: Join MHRT workstations
-  hosts: workstations_mhrt
   roles:
     - workstation
 
@@ -43,9 +20,3 @@
   hosts: dc_jlb_root
   roles:
     - ad_config
-
-- name: Configure Jump Box
-  hosts: jumpbox
-  roles:
-    - workstation
-    - jumpbox

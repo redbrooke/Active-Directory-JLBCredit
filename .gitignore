@@ -1,2 +1,4 @@
 server.vhd
 Windows.iso
+*.vhd
+*.avhd

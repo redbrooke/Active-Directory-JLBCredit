@@ -1,8 +1,6 @@
 domain_name: JLBCredit.local
-child_domain: Frankfurt
-mhrt_domain: MHRTFinance.local
 
-safe_mode_password: "P@ssw0rd123!"
+safe_mode_password: "Passw0rd123!"
 
 users:
   - AlanJohnson
