@@ -1,4 +1,10 @@
 # roles/workstation/tasks/main.yml
+- name: Set DNS to Domain Controller
+  ansible.windows.win_dns_client:
+    adapter_names: '*'
+    dns_servers:
+      - "192.168.56.101"
+
 - name: Join domain
   microsoft.ad.membership:
     dns_domain_name: "{{ domain_name }}"

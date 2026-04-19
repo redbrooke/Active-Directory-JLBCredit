@@ -9,8 +9,9 @@
 - name: Create users
   microsoft.ad.user:
     name: "{{ item }}"
-    user_principal_name: "{{ item }}@JLBCredit.local"
-    password: "Passw0rd123!"
+    sam_account_name: "{{ item }}"
+    upn: "{{ item }}@{{ domain_name }}"
+    password: "Password123!"
     state: present
     enabled: true
   loop: "{{ users }}"
@@ -24,7 +25,10 @@
 - name: Add users to RDP group
   microsoft.ad.group:
     name: RDP-Access
-    members: "{{ users }}"
+    scope: global
+    category: security
+    members:
+      add: "{{ rdpgang }}"
     state: present
 
 - name: Add RDP group to local Remote Desktop Users
