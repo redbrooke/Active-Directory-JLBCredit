@@ -3,7 +3,7 @@
 ansible-playbook -i inventory.ini site.yml
 
 Username: JLBCredit\JeremyUsbourne
-Password: P@ssw0rd123!
+Password: Password123!
 
 
 # First time box setup.
