@@ -10,7 +10,7 @@
   microsoft.ad.user:
     name: "{{ item }}"
     user_principal_name: "{{ item }}@JLBCredit.local"
-    password: "P@ssw0rd123!"
+    password: "Passw0rd123!"
     state: present
     enabled: true
   loop: "{{ users }}"

@@ -5,18 +5,18 @@
 
 # JLBCredit forest root
 - name: Create JLBCredit forest root DC
-  hosts: dc_jlb_root
+  hosts: JLBCreditDC
   roles:
     - dc_root
 
 # Join workstations
 - name: Join JLBCredit workstations
-  hosts: workstations_jlb
+  hosts: JLBWorkstation
   roles:
     - workstation
 
 # AD config (users, OUs, RDP)
 - name: Configure AD
-  hosts: dc_jlb_root
+  hosts: JLBCreditDC
   roles:
     - ad_config
